@@ -46,6 +46,9 @@
 // More includes here...
 #include "autons.hpp"
 #include "subsystems.hpp"
+#include "intake.h"
+#include "mStage.h"
+#include "tStage.h"
 
 
 /**
