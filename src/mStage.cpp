@@ -7,8 +7,10 @@ void set_mStage(int input) {
 void mStage_opcontrol() {
   if (master.get_digital(DIGITAL_L1)) {
     set_mStage(127);
+    set_tStage(127);
   } 
   else {
     set_mStage(0);
+    set_tStage(0);
   }
 }
