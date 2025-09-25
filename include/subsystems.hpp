@@ -20,7 +20,9 @@ inline pros::adi::DigitalOut matchLoad('B');
 // Aligner
 inline pros::adi::DigitalOut aligner('A');
 
-inline pros::adi::DigitalOut BallHold('C');
+inline pros::adi::DigitalOut BallHold('D');
+
+inline pros::adi::DigitalOut wings('E');
 
 
 

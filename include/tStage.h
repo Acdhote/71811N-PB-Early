@@ -10,3 +10,4 @@ void tStage_opcontrol();
 void toggleStageSwitch();
 void toggleMatchLoad();
 void toggleBallHold();
+void toggleWings();

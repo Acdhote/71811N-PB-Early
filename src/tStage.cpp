@@ -2,6 +2,7 @@
 bool a = false;
 bool b = false;
 bool c = false;
+bool d = false;
 void set_tStage(int input) {
   tStage.move(input);
 }
@@ -30,8 +31,15 @@ void toggleMatchLoad() {
 }
 
 void toggleBallHold() {
-  if (master.get_digital_new_press(DIGITAL_A)) {
+  if (master.get_digital_new_press(DIGITAL_X)) {
     c = !c;
     BallHold.set_value(c);
+  }
+}
+
+void toggleWings() {
+  if (master.get_digital_new_press(DIGITAL_UP)) {
+    d = !d;
+    wings.set_value(d);
   }
 }

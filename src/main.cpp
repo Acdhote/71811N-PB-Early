@@ -11,7 +11,7 @@ ez::Drive chassis(
     {-11, 12, -13},     // Left Chassis Ports (negative port will reverse it!)
     {-15, 14, 16},  // Right Chassis Ports (negative port will reverse it!)
 
-    1,      // IMU Port
+    9,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
@@ -20,8 +20,8 @@ ez::Drive chassis(
 //  - you should get positive values on the encoders going FORWARD and RIGHT
 // - `2.75` is the wheel diameter
 // - `4.0` is the distance from the center of the wheel to the center of the robot
- ez::tracking_wheel horiz_tracker(2, 2.0, -4.76);  // This tracking wheel is perpendicular to the drive wheels
- ez::tracking_wheel vert_tracker(3, 2.055, -0.4);   // This tracking wheel is parallel to the drive wheels
+ ez::tracking_wheel horiz_tracker(19, 2, -4.61);  // This tracking wheel is perpendicular to the drive wheels
+ ez::tracking_wheel vert_tracker(1, 2.75, -3.47);   // This tracking wheel is parallel to the drive wheels
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -58,7 +58,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      {"First odom test", odom_test},
+      {"First odom test", drive_example},
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Simple Odom\n\nThis is the same as the drive example, but it uses odom instead!", odom_drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},
@@ -249,6 +249,7 @@ void opcontrol() {
     toggleStageSwitch();
     toggleMatchLoad();
     toggleBallHold();
+    toggleWings();
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }

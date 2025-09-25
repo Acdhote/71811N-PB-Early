@@ -7,7 +7,7 @@
 
 // These are out of 127
 const int DRIVE_SPEED = 120;
-const int TURN_SPEED = 65;
+const int TURN_SPEED = 90;
 const int SWING_SPEED = 110;
 
 ///
@@ -15,11 +15,11 @@ const int SWING_SPEED = 110;
 ///
 void default_constants() {
   // P, I, D, and Start I
-  chassis.pid_drive_constants_set(10, 0.0, 35);         // Fwd/rev constants, used for odom and non odom motions
-  chassis.pid_heading_constants_set(11.0, 0.0, 32.0);        // Holds the robot straight while going forward without odom
-  chassis.pid_turn_constants_set(3.75, 0.0, 27.5, 5);     // Turn in place constants
+  chassis.pid_drive_constants_set(5, 0.05,20);         // Fwd/rev constants, used for odom and non odom motions
+  chassis.pid_heading_constants_set(11, 0.0, 32.0);        // Holds the robot straight while going forward without odom
+  chassis.pid_turn_constants_set(3.75, 0.0, 30, 0);     // Turn in place constants
   chassis.pid_swing_constants_set(6.0, 0.0, 65.0);           // Swing constants
-  chassis.pid_odom_angular_constants_set(3.5, 0.0, 28.5);    // Angular control for odom motions
+  chassis.pid_odom_angular_constants_set(11.5, 1, 32, 10);    // Angular control for odom motions
   chassis.pid_odom_boomerang_constants_set(5.2, 0.0, 40.5);  // Angular control for boomerang motions 
 
   // Exit conditions
@@ -39,7 +39,7 @@ void default_constants() {
 
   // The amount that turns are prioritized over driving in odom motions
   // - if you have tracking wheels, you can run this higher.  1.0 is the max
-  chassis.odom_turn_bias_set(0.9);
+  chassis.odom_turn_bias_set(0.95);
 
   chassis.odom_look_ahead_set(7_in);           // This is how far ahead in the path the robot looks at
   chassis.odom_boomerang_distance_set(16_in);  // Reduced max distance for tighter control
@@ -74,19 +74,10 @@ void odom_test() {
 // Drive Example
 ///
 void drive_example() {
-  // The first parameter is target inches
-  // The second parameter is max speed the robot will drive at
-  // The third parameter is a boolean (true or false) for enabling/disabling a slew at the start of drive motions
-  // for slew, only enable it when the drive distance is greater than the slew distance + a few inches
-
-  chassis.pid_drive_set(24_in, 95, true);
+  chassis.pid_odom_set({{24, 48}, fwd, 110});
   chassis.pid_wait();
-
-  // chassis.pid_drive_set(-12_in, DRIVE_SPEED);
-  // chassis.pid_wait();
-
-  // chassis.pid_drive_set(-12_in, DRIVE_SPEED);
-  // chassis.pid_wait();
+  chassis.pid_turn_set(0,90);
+  chassis.pid_wait();
 }
 
 ///
@@ -96,13 +87,7 @@ void turn_example() {
   // The first parameter is the target in degrees
   // The second parameter is max speed the robot will drive at
 
-  chassis.pid_turn_set(90_deg, TURN_SPEED);
-  chassis.pid_wait();
-
-  chassis.pid_turn_set(45_deg, TURN_SPEED);
-  chassis.pid_wait();
-
-  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_turn_set(90_deg, 90);
   chassis.pid_wait();
 }
 
